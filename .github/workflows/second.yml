@@ -5,7 +5,7 @@ name: Second Workflow
 # Controls when the workflow will run
 on:
   repository_dispatch:
-    types: [start-next-workflow]
+    types: ["Backup DB"]
 
 jobs:
   echo:
