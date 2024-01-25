@@ -22,6 +22,6 @@ jobs:
       - name: Trigger Next Workflow
         uses: peter-evans/repository-dispatch@v2
         with:
-          event-type: "Backup DB"
+          event-type: "Backup Mars"
           client-payload: '{"input1": "value1", "input2": "value2"}'
     
