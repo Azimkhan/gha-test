@@ -12,7 +12,7 @@ on:
 
   workflow_run:
     workflows: ["First Workflow"]
-    types: [complete]
+    types: [completed]
 
 jobs:
   echo:
