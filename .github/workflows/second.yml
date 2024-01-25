@@ -4,6 +4,13 @@ name: Second Workflow
 
 # Controls when the workflow will run
 on:
+  workflow_dispatch: # Added workflow_dispatch event for manual triggering
+    inputs:
+      planet:
+        description: 'Planet to backup'
+        required: true
+        default: 'Earth' # Default value if not provided
+  
   repository_dispatch:
     types: ["Backup DB"]
 
@@ -13,7 +20,19 @@ jobs:
     
     runs-on: ubuntu-latest
     steps:
+     # Add conditional step to define PLANET env var only if triggered by repository_dispatch
+      - name: Set PLANET environment variable for repository_dispatch
+        if: github.event_name == 'repository_dispatch'
+        run: echo "PLANET=$PLANET" >> $GITHUB_ENV
+        env:
+          PLANET: ${{ github.event_type == 'Backup Mars' && 'Mars' || github.event_type == 'Backup Moon' && 'Moon' || '' }}
+      - name: Set PLANET environment variable for workflow_dispatch
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "PLANET=$PLANET" >> $GITHUB_ENV
+        env:
+          PLANET: ${{ github.event.inputs.planet }}
       - name: echo
         run: |
           echo "Input 1: ${{ github.event.client_payload.input1 }}"
           echo "Input 2: ${{ github.event.client_payload.input2 }}"
+          echo "${{ env.PLANET}}"
