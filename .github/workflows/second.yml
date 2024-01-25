@@ -12,7 +12,7 @@ on:
         default: 'Earth' # Default value if not provided
   
   repository_dispatch:
-    types: ["Backup DB"]
+    types: ["Backup Mars", "Backup Moon"]
 
 jobs:
   echo:
