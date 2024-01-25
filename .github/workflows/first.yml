@@ -15,4 +15,13 @@ jobs:
     steps:
       - name: echo
         run: echo "test"
+
+  trigger_next:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Next Workflow
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          event-type: start-next-workflow
+          client-payload: '{"input1": "value1", "input2": "value2"}'
     
