@@ -4,6 +4,10 @@ name: Second Workflow
 
 # Controls when the workflow will run
 on:
+  push:
+    branches:
+      - devel-1
+      
   workflow_dispatch:
 
   workflow_run:
