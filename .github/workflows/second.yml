@@ -25,7 +25,7 @@ jobs:
         if: github.event_name == 'repository_dispatch'
         run: echo "PLANET=$PLANET" >> $GITHUB_ENV
         env:
-          PLANET: ${{ github.event_type == 'Backup Mars' && 'Mars' || github.event_type == 'Backup Moon' && 'Moon' || '' }}
+          PLANET: ${{ github.event.action == 'Backup Mars' && 'Mars' || github.event.action == 'Backup Moon' && 'Moon' || '' }}
       - name: Set PLANET environment variable for workflow_dispatch
         if: github.event_name == 'workflow_dispatch'
         run: echo "PLANET=$PLANET" >> $GITHUB_ENV
