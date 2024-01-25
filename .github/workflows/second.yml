@@ -4,15 +4,8 @@ name: Second Workflow
 
 # Controls when the workflow will run
 on:
-  push:
-    branches:
-      - devel-1
-      
-  workflow_dispatch:
-
-  workflow_run:
-    workflows: ["First Workflow"]
-    types: [completed]
+  repository_dispatch:
+    types: [start-next-workflow]
 
 jobs:
   echo:
@@ -21,4 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo
-        run: echo "test"
+        run: |
+          echo "Input 1: ${{ github.event.client_payload.input1 }}"
+          echo "Input 2: ${{ github.event.client_payload.input2 }}"
