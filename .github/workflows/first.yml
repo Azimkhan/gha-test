@@ -19,14 +19,6 @@ jobs:
   trigger_next:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate a token
-        id: generate_token
-        uses: actions/create-github-app-token@v1
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PEM }}
-          # Set the owner, so the token can be used in all repositories
-          owner: ${{ github.repository_owner }}
       - name: Trigger Next Workflow
         uses: peter-evans/repository-dispatch@v2
         with:
