@@ -5,19 +5,22 @@ name: CI
 # Controls when the workflow will run
 on:
   workflow_dispatch:
-
+env:
+  ARG: my-arg
+  
 jobs:
   init:
     name: Init
     runs-on: ubuntu-latest
     steps:
-      - name: Set env
-        run: echo "ARG=my-arg" >> $GITHUB_ENV
+      - name: Define command
+        run: echo "command=${{env.ARG}}" >> $GITHUB_OUTPUT
+        
   db:
     name: Run db command
     needs: init
     uses: ./.github/workflows/exec-command.yml
     with:
-      command: ls $ARG
+      command: ls ${{ needs.init.outputs.command }}
       
       
