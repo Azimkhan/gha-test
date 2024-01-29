@@ -15,6 +15,7 @@ jobs:
         run: echo "ARG=my-arg" >> $GITHUB_ENV
   db:
     name: Run db command
+    needs: init
     uses: ./.github/workflows/exec-command.yml
     with:
       command: ls $ARG
