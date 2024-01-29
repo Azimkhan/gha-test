@@ -1,0 +1,19 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Execute command
+
+on:
+  workflow_call:
+    inputs:
+      command:
+        description: 'Command'
+        required: true
+        type: string
+
+jobs:
+  exec:
+    runs-on: ubuntu-latest
+    name: Exec command
+    steps:
+      - name: echo
+        run: echo ${{ inputs.command }}
