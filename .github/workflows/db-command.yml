@@ -13,8 +13,11 @@ jobs:
     name: Init
     runs-on: ubuntu-latest
     steps:
-      - name: Define command
-        run: echo "command=${{env.ARG}}" >> $GITHUB_OUTPUT
+      - id: step1
+        name: Define command
+        run: echo "command=${{env.ARG}}" >> "$GITHUB_OUTPUT"
+    outputs:
+      command: ${{ steps.step1.outputs.command }}
         
   db:
     name: Run db command
