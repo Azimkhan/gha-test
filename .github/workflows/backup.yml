@@ -49,7 +49,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: ssss
+        run: echo restore
 
   restore-data:
     runs-on: ubuntu-latest
