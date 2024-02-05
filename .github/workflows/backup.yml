@@ -14,7 +14,7 @@ on:
         description: 'Routine'
         required: true
         type: choice
-        options: ['backup', 'restore']
+        options: ['backup', 'restore', 'restore data']
         default: 'bakcup'
       obfuscate:
         description: 'Obfuscate database after backup'
@@ -53,7 +53,7 @@ jobs:
 
   restore-data:
     runs-on: ubuntu-latest
-    if: always() && contains(needs.restore.result, 'success')
+    if: always() && (contains(needs.restore.result, 'success') || inputs.routine == 'restore data')
     needs: restore
     steps:
       - name: 'Some step'
