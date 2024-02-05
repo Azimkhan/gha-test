@@ -50,3 +50,11 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo restore
+
+  restore-data:
+    runs-on: ubuntu-latest
+    needs: restore
+    if: always()
+    steps:
+      - name: 'Some step'
+        run: echo restore-data
