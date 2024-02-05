@@ -54,6 +54,7 @@ jobs:
   restore-data:
     runs-on: ubuntu-latest
     if: always() && contains(needs.restore.result, 'success')
+    needs: restore
     steps:
       - name: 'Some step'
         run: echo restore-data
