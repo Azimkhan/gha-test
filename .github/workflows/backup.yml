@@ -40,7 +40,7 @@ jobs:
   obfuscate-db:
     name: Obfuscate
     needs: backup-db
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     if: |
       always() && (
         (contains(needs.backup-db.result, 'success') && ((inputs.routine == 'backup' && inputs.obfuscate == true) || github.event_name == 'schedule')) 
