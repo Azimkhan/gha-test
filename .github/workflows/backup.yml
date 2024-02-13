@@ -4,8 +4,8 @@ name: Backup
 
 # Controls when the workflow will run
 on:
-  # schedule:
-  #   - cron: '* * * * *'
+  schedule:
+    - cron: '* * * * *'
     
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
         description: 'Routine'
         required: true
         type: choice
-        options: ['backup', 'restore', 'restore data']
+        options: ['backup', 'restore', 'obfuscate', 'restore data']
         default: 'bakcup'
       obfuscate:
         description: 'Obfuscate database after backup'
@@ -24,10 +24,10 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  backup:
+  backup-db:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'schedule' || (inputs.routine == 'backup' && inputs.obfuscate == true) }}
+    if: ${{ github.event_name == 'schedule' || inputs.routine == 'backup' }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -36,6 +36,19 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo backup
+  
+  obfuscate-db:
+    name: Obfuscate
+    needs: backup-db
+    runs-on: ubuntu-lastest
+    if: |
+      always() && (
+        (contains(needs.backup-db.result, 'success') && ((inputs.routine == 'backup' && inputs.obfuscate == true) || github.event_name == 'schedule')) 
+        || inputs.routine == 'obfuscate'
+      )
+    steps:
+      - run: echo Obfuscate
+
 
   restore:
     # The type of runner that the job will run on
