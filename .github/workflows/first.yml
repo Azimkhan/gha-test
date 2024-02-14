@@ -4,8 +4,8 @@ name: First Workflow
 
 # Controls when the workflow will run
 on:
-  schedule:
-    - cron: '5 */3 * * *'
+  # schedule:
+  #   - cron: '5 */3 * * *'
   workflow_dispatch:
 
 
