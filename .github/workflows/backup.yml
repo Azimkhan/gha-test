@@ -43,10 +43,8 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       always() && (
-        (
-          contains(needs.backup-db.result, 'success') 
-          && ((inputs.routine == 'backup' && inputs.obfuscate == true) || github.event_name == 'schedule')
-        ) 
+        contains(needs.backup-db.result, 'success') 
+        && ((inputs.routine == 'backup' && inputs.obfuscate == true) || github.event_name == 'schedule')
         || inputs.routine == 'obfuscate'
       )
     steps:
